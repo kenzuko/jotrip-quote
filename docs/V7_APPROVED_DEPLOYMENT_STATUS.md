@@ -24,3 +24,10 @@ The owner confirmed JoTrip has its own photography on Google Drive. Drive discov
 - Verify public footer contacts and links; do not mistake the website for a street address. Draft and approve privacy notice and terms before accepting customer information.
 - Check real iPhone Safari, API intake and quote data-exposure tests.
 - Keep this PR draft until full CI and staging sign-off. No verified production or preview URL yet.
+
+## Preview D1 provisioned by owner (25/09/2026)
+
+- Cloudflare D1 database **created and confirmed from Dashboard screenshot**: `jotrip-quote-preview-db`.
+- Preview D1 UUID: `5242a0ac-9d8a-4013-8cad-806c1e37ef90`.
+- Intended Worker: `jotrip-quote-preview` (not yet confirmed created or deployed).
+- Do not create a duplicate D1. Update only the `env.preview` D1 binding when the full source is ready; leave the production binding unset. Applying preview migrations and deploying remain pending. **Do not click Deploy on the current GitHub branch**: the implementation files and approved media are not yet synced there.
