@@ -29,11 +29,11 @@ The owner confirmed JoTrip has its own photography on Google Drive. Drive discov
 
 - Cloudflare D1 database **created and confirmed from Dashboard screenshot**: `jotrip-quote-preview-db`.
 - Preview D1 UUID: `5242a0ac-9d8a-4013-8cad-806c1e37ef90`.
-- Intended Worker: `jotrip-quote-preview` (not yet confirmed created or deployed).
-- Do not create a duplicate D1. Update only the `env.preview` D1 binding when the full source is ready; leave the production binding unset. Applying preview migrations and deploying remain pending. **Do not click Deploy on the current GitHub branch**: the implementation files and approved media are not yet synced there.
+- Worker `jotrip-quote-preview` has been created as a Cloudflare starter Worker; actual V7 source is not deployed.
+- Do not create a duplicate D1. `wrangler.jsonc` on this branch now includes the approved `env.preview` Worker name and D1 binding, while production D1 remains a placeholder. Applying preview migrations and deploying remain pending. **Do not click Deploy on the current GitHub branch**: the implementation files and approved media are not yet synced there.
 
 ## Cloudflare preview Worker confirmed by owner (25/09/2026)
 
 - Dashboard screenshot shows `jotrip-quote-preview` created and Cloudflare displaying `jotrip-quote-preview.kenzuko.workers.dev` as its workers.dev URL.
 - Only the starter Worker is confirmed; **V7 application source is not deployed** and the URL has not been independently validated as serving V7.
-- Next user-assisted step: Bind existing D1 `jotrip-quote-preview-db` to this Worker with variable name `DB`. Do **not** create a second D1 or attach a production custom domain. Later, a reviewed `wrangler deploy --env preview` will manage bindings via config.
+- **Binding confirmed by screenshot:** on the existing Worker, Production > Settings > Bindings shows D1 binding `DB` pointing to `jotrip-quote-preview-db`, UUID `5242a0ac-9d8a-4013-8cad-806c1e37ef90`. The Cloudflare `Production` label is the deployment environment of the **preview-named Worker**, not evidence that jotrip.vn has been updated. Do **not** create a second D1 or attach a production custom domain. Later, a reviewed `wrangler deploy --env preview` will manage bindings via config.
