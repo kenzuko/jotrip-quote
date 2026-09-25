@@ -3,7 +3,7 @@
   "name": "jotrip-quote",
   "main": "src/worker.mjs",
   "compatibility_date": "2026-09-24",
-  "workers_dev": true,
+  "workers_dev": false,
   "observability": { "enabled": true },
   "d1_databases": [
     {
@@ -12,5 +12,19 @@
       "database_id": "REPLACE_WITH_D1_UUID",
       "migrations_dir": "migrations"
     }
-  ]
+  ],
+  "env": {
+    "preview": {
+      "name": "jotrip-quote-preview",
+      "workers_dev": true,
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "jotrip-quote-preview-db",
+          "database_id": "5242a0ac-9d8a-4013-8cad-806c1e37ef90",
+          "migrations_dir": "migrations"
+        }
+      ]
+    }
+  }
 }
