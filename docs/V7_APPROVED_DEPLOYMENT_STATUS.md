@@ -31,3 +31,9 @@ The owner confirmed JoTrip has its own photography on Google Drive. Drive discov
 - Preview D1 UUID: `5242a0ac-9d8a-4013-8cad-806c1e37ef90`.
 - Intended Worker: `jotrip-quote-preview` (not yet confirmed created or deployed).
 - Do not create a duplicate D1. Update only the `env.preview` D1 binding when the full source is ready; leave the production binding unset. Applying preview migrations and deploying remain pending. **Do not click Deploy on the current GitHub branch**: the implementation files and approved media are not yet synced there.
+
+## Cloudflare preview Worker confirmed by owner (25/09/2026)
+
+- Dashboard screenshot shows `jotrip-quote-preview` created and Cloudflare displaying `jotrip-quote-preview.kenzuko.workers.dev` as its workers.dev URL.
+- Only the starter Worker is confirmed; **V7 application source is not deployed** and the URL has not been independently validated as serving V7.
+- Next user-assisted step: Bind existing D1 `jotrip-quote-preview-db` to this Worker with variable name `DB`. Do **not** create a second D1 or attach a production custom domain. Later, a reviewed `wrangler deploy --env preview` will manage bindings via config.
