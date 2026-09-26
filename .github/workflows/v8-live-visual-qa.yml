@@ -5,6 +5,9 @@ on:
     paths:
       - tools/v8-live-visual-qa.mjs
       - .github/workflows/v8-live-visual-qa.yml
+      - public/bespoke/*.html
+      - public/bespoke/*.css
+      - public/bespoke/*.js
   workflow_dispatch:
 permissions:
   contents: read
