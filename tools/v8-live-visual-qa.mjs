@@ -1,0 +1,55 @@
+import {chromium} from 'playwright-core';
+import {mkdir,writeFile} from 'node:fs/promises';
+const BASE=process.env.JOTRIP_PREVIEW_URL||'https://jotrip-quote-preview.kenzuko.workers.dev';
+const DIR='artifacts/v8-visual-qa';
+const checks=[];
+await mkdir(DIR,{recursive:true});
+const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_BIN||'/usr/bin/google-chrome',args:['--no-sandbox','--disable-dev-shm-usage']});
+async function inspect(page,name,opts={}){
+ await page.waitForTimeout(150);
+ await page.evaluate(()=>document.querySelectorAll('img[loading="lazy"]').forEach(img=>{img.loading='eager'}));
+ await page.evaluate(async()=>{await Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,3500))]);await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})))});
+ const result=await page.evaluate(()=>({screen:document.querySelector('.screen')?.className||'',viewport:innerWidth,documentWidth:document.documentElement.scrollWidth,brokenImages:[...document.images].filter(i=>i.complete&&!i.naturalWidth).map(i=>i.getAttribute('src')),internetLabels:document.querySelectorAll('.photo-credit,.v8-source').length,mainHeading:document.querySelector('h1')?.textContent||''}));
+ await page.screenshot({path:`${DIR}/${name}.png`,fullPage:true,animations:'disabled',timeout:30000});
+ if(result.documentWidth>result.viewport+2)throw Error(`${name}: horizontal overflow ${result.documentWidth}px vs viewport ${result.viewport}px`);
+ if(result.brokenImages.length)throw Error(`${name}: broken images: ${result.brokenImages.join(', ')}`);
+ if(opts.internet&&result.internetLabels<opts.internet)throw Error(`${name}: Internet source badges missing`);
+ checks.push({name,...result});
+}
+for(const viewport of [{name:'desktop',width:1440,height:900},{name:'iphone',width:390,height:844},{name:'compact',width:320,height:720}]){
+ const page=await browser.newPage({viewport:{width:viewport.width,height:viewport.height},deviceScaleFactor:1,isMobile:viewport.name!=='desktop',hasTouch:viewport.name!=='desktop'});
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ const url=BASE+'/bespoke';
+ const res=await page.goto(url,{waitUntil:'domcontentloaded',timeout:35000});
+ if(res.status!==200)throw Error(`${viewport.name}: GET /bespoke status ${res.status}`);
+ await page.locator('.homehero').waitFor();
+ await inspect(page,`${viewport.name}-home`,{internet:2});
+ if(viewport.name==='desktop'||viewport.name==='iphone'){
+  await page.locator('.home-ctas [data-act="go"][data-to="mood"]').click();
+  await page.locator('.mood-grid').waitFor();
+  await inspect(page,`${viewport.name}-moods`,{internet:1});
+  await page.locator('.mood-card[data-id="island"]').click();
+  if(viewport.name==='iphone'){
+   await page.locator('.mobile-story').waitFor();
+  }
+  await inspect(page,`${viewport.name}-journey`);
+  await page.locator('.stage-actions [data-act="go"][data-to="details"]').click();
+  await page.locator('main.stage').waitFor();
+  await inspect(page,`${viewport.name}-details`);
+  await page.locator('button[data-act="set"][data-key="party"][data-value="family"]').click();
+  await page.locator('#children').waitFor();
+  await inspect(page,`${viewport.name}-family`);
+  await page.locator('.form-actions [data-to="builder"]').first().click();
+  await page.locator('.experience-grid').waitFor();
+  await inspect(page,`${viewport.name}-experiences`);
+  await page.locator('.experience-grid button[data-act="exp"]').first().click();
+  await page.locator('.form-actions [data-to="review"]').first().click();
+  await page.locator('.review-grid').waitFor();
+  await inspect(page,`${viewport.name}-review`);
+ }
+ if(errors.length)throw Error(`${viewport.name}: uncaught page errors: ${errors.join('; ')}`);
+ await page.close();
+}
+await browser.close();
+await writeFile(`${DIR}/results.json`,JSON.stringify({base:BASE,checkedAt:new Date().toISOString(),checks},null,2));
+console.log('V8 LIVE VISUAL QA PASS',checks.map(x=>x.name).join(', '));
