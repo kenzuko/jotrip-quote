@@ -46,6 +46,8 @@ for(const viewport of [{name:'desktop',width:1440,height:900},{name:'iphone',wid
   await page.locator('.experience-grid button[data-act="exp"]').first().click();
   await page.locator('button[data-act="go"][data-to="review"]:visible').first().click();
   await page.locator('.review-grid').waitFor();
+  await page.locator('.v8-demo-note').waitFor();
+  if(await page.locator('#name, #contact, button[data-act="submit"]').count())throw Error('Read-only preview must not display lead collection fields');
   await inspect(page,`${viewport.name}-review`);
  }
  if(errors.length)throw Error(`${viewport.name}: uncaught page errors: ${errors.join('; ')}`);
