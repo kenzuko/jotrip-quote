@@ -2,6 +2,7 @@
 
 (()=>{'use strict';
 const IMG=k=>'/bespoke/assets/'+k+'.webp';
+const VISUAL_PREVIEW=location.hostname==='jotrip-quote-preview.kenzuko.workers.dev';
 const INTERNET_MEDIA=new Set(['coast','hero','island','boat','relax','rach-vem','safari','vinwonders','snorkeling']);
 const PUBLIC_PHOTO_NOTES={coast:'Bãi Sao · Phú Quốc',hero:'Khu nghỉ dưỡng ven biển Phú Quốc',island:'Hòn Mây Rút · Phú Quốc',boat:'Biển Phú Quốc',relax:'Nghỉ dưỡng bên biển',family:'Khách JoTrip trên chuyến đi biển',food:'Hải sản địa phương',local:'Đời sống ven biển',rachvem:'Hoàng hôn cùng thuyền cá',fishing:'Câu cá lớn cùng JoTrip',sunset:'Hoàng hôn Phú Quốc',safari:'Vui chơi cùng gia đình tại Phú Quốc',vinwonders:'VinWonders Phú Quốc'};
 const mediaCredit=k=>INTERNET_MEDIA.has(k)?'Nguồn: Internet':'Ảnh: JoTrip';
@@ -68,6 +69,13 @@ function enhanceDocumentedPhotos(){
    }
   }
  });
+ if(VISUAL_PREVIEW&&s.screen==='review'){
+  const previewPanel=root.querySelector('.two-col > aside.panel');
+  if(previewPanel)previewPanel.innerHTML="<div class=\"eyebrow\">BẢN XEM THỬ · CHƯA NHẬN THÔNG TIN</div><h3 class=\"v8-demo-heading\">Hành trình của bạn đã có hình dáng.</h3><p class=\"v8-demo-copy\">Đây là bản xem thử giao diện. Bạn có thể thay đổi gu, người đồng hành và trải nghiệm để xem JoTrip thiết kế bản phác thảo ra sao.</p><div class=\"v8-demo-note\">Bản xem thử chưa nhận thông tin cá nhân hay yêu cầu báo giá. Muốn trao đổi về chuyến đi thật, bạn có thể liên hệ trực tiếp với JoTrip.</div><div class=\"v8-demo-actions\"><a class=\"sunbtn\" href=\"tel:+84817060066\">Gọi JoTrip · 0817 060 066 ↗</a><a class=\"linebtn\" href=\"mailto:phuquoclux@gmail.com\">Viết email cho JoTrip ↗</a></div><button class=\"quietlink\" data-act=\"go\" data-to=\"builder\">← Xem lại và thay đổi trải nghiệm</button>";
+  const previewSticky=root.querySelector('.mobile-sticky');
+  if(previewSticky)previewSticky.innerHTML="<button class=\"outline\" data-act=\"go\" data-to=\"builder\">← Chỉnh trải nghiệm</button><a class=\"sunbtn\" href=\"tel:+84817060066\">Gọi JoTrip ↗</a>";
+ }
+
 }
 
 function howModal(){return `<div class="talk-scrim"><section class="talk-sheet" role="dialog" aria-modal="true" aria-label="JoTrip thiết kế như thế nào"><button class="talk-close" data-act="closehow" aria-label="Đóng">×</button><div class="eyebrow">TỪ CẢM HỨNG ĐẾN CHUYẾN ĐI RIÊNG</div><h2 class="serif">Mỗi lựa chọn của bạn<br><em>đều có lý do.</em></h2><p>Đây là cách JoTrip đồng hành cùng bạn, không phải biểu mẫu báo giá có sẵn.</p><div class="how-steps"><div><b>01 · Chọn gu bằng hình ảnh</b><p>Chạm vào những trải nghiệm làm bạn háo hức. Một bản phác thảo bắt đầu xuất hiện.</p></div><div><b>02 · Kể điều thật sự quan trọng</b><p>Chúng tôi tìm hiểu người đồng hành, nhịp độ và điều kiện riêng của chuyến đi.</p></div><div><b>03 · Tự giữ hoặc bỏ trải nghiệm</b><p>Journey Studio giải thích từng gợi ý. Sau đó chuyên gia JoTrip kiểm tra dịch vụ thực tế trước khi báo giá.</p></div></div><button class="sunbtn" data-act="howstart">Bắt đầu thiết kế chuyến đi →</button></section></div>`}
