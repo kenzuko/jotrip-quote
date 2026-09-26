@@ -72,14 +72,14 @@ jobs:
           trap 'status=$?; echo "::error::Smoke check failed at line ${LINENO}: ${BASH_COMMAND} (exit ${status})"; exit "$status"' ERR
           set -x
           BASE='https://jotrip-quote-preview.kenzuko.workers.dev'
-          curl -fLsS --retry 2 --max-time 25 "$BASE/bespoke" -o /tmp/jotrip-v8-page.html
+          curl -fLsS --retry 4 --retry-all-errors --retry-delay 2 --max-time 25 "$BASE/bespoke" -o /tmp/jotrip-v8-page.html
           grep -q 'JoTrip Bespoke' /tmp/jotrip-v8-page.html
-          curl -fLsS --max-time 25 "$BASE/bespoke/app.js" -o /tmp/jotrip-v8.js
-          curl -fLsS --max-time 25 "$BASE/bespoke/app.css" -o /tmp/jotrip-v8.css
-          curl -fLsS --max-time 25 "$BASE/bespoke/assets/coast.webp" -o /tmp/jotrip-v8-hero.webp
-          curl -fLsS --max-time 25 "$BASE/bespoke/assets/journal-private.webp" -o /tmp/jotrip-v8-journal.webp
-          curl -fLsS --max-time 25 "$BASE/bespoke/assets/local-story-motion.webp" -o /tmp/jotrip-local-story-motion.webp
-          curl -fLsS --max-time 25 "$BASE/bespoke/assets/local-story-poster.webp" -o /tmp/jotrip-local-story-poster.webp
+          curl -fLsS --retry 4 --retry-all-errors --retry-delay 2 --max-time 25 "$BASE/bespoke/app.js" -o /tmp/jotrip-v8.js
+          curl -fLsS --retry 4 --retry-all-errors --retry-delay 2 --max-time 25 "$BASE/bespoke/app.css" -o /tmp/jotrip-v8.css
+          curl -fLsS --retry 4 --retry-all-errors --retry-delay 2 --max-time 25 "$BASE/bespoke/assets/coast.webp" -o /tmp/jotrip-v8-hero.webp
+          curl -fLsS --retry 4 --retry-all-errors --retry-delay 2 --max-time 25 "$BASE/bespoke/assets/journal-private.webp" -o /tmp/jotrip-v8-journal.webp
+          curl -fLsS --retry 4 --retry-all-errors --retry-delay 2 --max-time 25 "$BASE/bespoke/assets/local-story-motion.webp" -o /tmp/jotrip-local-story-motion.webp
+          curl -fLsS --retry 4 --retry-all-errors --retry-delay 2 --max-time 25 "$BASE/bespoke/assets/local-story-poster.webp" -o /tmp/jotrip-local-story-poster.webp
           grep -q 'class="screen home-screen local-landing"' /tmp/jotrip-v8.js
           grep -q 'local-story-motion.webp' /tmp/jotrip-v8.js
           grep -q 'JoTrip Bespoke V8' /tmp/jotrip-v8.css
