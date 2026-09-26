@@ -432,3 +432,7 @@ body{background:var(--v8-cream);text-rendering:optimizeLegibility;-webkit-font-s
 .v8-source{line-height:1.4!important}
 @media(max-width:820px){.v8-stage-story,.stage-header:has(>.v8-stage-photo){display:block}.v8-stage-photo{margin:22px 0 0;height:172px;border-radius:14px}.v8-stage-photo img{object-position:center 58%}}
 @media(max-width:450px){.v8-stage-photo{height:145px;margin-top:16px}}
+
+/* V8.2: keep source badges attached to visible photos, not mobile copy. */
+.v8-stage-photo>.v8-source{right:10px;bottom:10px}
+@media(max-width:820px){.stage-header:has(>.stage-cover)>.v8-source{display:none!important}}
