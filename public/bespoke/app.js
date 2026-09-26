@@ -56,7 +56,7 @@ function enhanceDocumentedPhotos(){
   if((img.getAttribute('alt')||'').match(/giữ chỗ|chờ duyệt|placeholder/i))img.setAttribute('alt',PUBLIC_PHOTO_NOTES[slot]||'Ảnh du lịch Phú Quốc');
   img.title=(PUBLIC_PHOTO_NOTES[slot]||'Ảnh Phú Quốc')+' · '+mediaCredit(slot);
   if(!INTERNET_MEDIA.has(slot))return;
-  const container=img.closest('.home-image,.mood-card,.story,.experience .photo,.journey-photo,.stage-header,.review-hero,.visual-frame,.visual-strip');
+  const container=img.closest('.home-image,.mood-card,.story,.experience .photo,.journey-photo,.v8-stage-photo,.stage-header,.review-hero,.visual-frame,.visual-strip');
   if(container){
    if(container.classList.contains('home-image')){
     const credit=container.querySelector('.photo-credit'); if(credit)credit.textContent='Nguồn: Internet';
