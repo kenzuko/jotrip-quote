@@ -585,6 +585,6 @@ body{background:var(--v8-cream);text-rendering:optimizeLegibility;-webkit-font-s
  .local-landing .home-paths{gap:8px}
  .local-landing .home-paths .sunbtn,.local-landing .home-paths .linebtn{min-height:49px!important;padding:12px 15px!important;font-size:12px!important}
  .local-landing .home-call{font-size:12px;padding:4px}
- .quick-brief .panel>.form-section:nth-of-type(n+4){display:none}
+ .quick-brief .panel>.form-section:nth-of-type(n+5){display:none}
  .quick-brief .panel>.form-section:nth-of-type(3) .choice-row{display:none}
 }
