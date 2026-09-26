@@ -33,17 +33,17 @@ for(const viewport of [{name:'desktop',width:1440,height:900},{name:'iphone',wid
    await page.locator('.mobile-story').waitFor();
   }
   await inspect(page,`${viewport.name}-journey`);
-  await page.locator('.stage-actions [data-act="go"][data-to="details"]').click();
+  await page.locator('button[data-act="go"][data-to="details"]:visible').first().click();
   await page.locator('main.stage').waitFor();
   await inspect(page,`${viewport.name}-details`);
   await page.locator('button[data-act="set"][data-key="party"][data-value="family"]').click();
   await page.locator('#children').waitFor();
   await inspect(page,`${viewport.name}-family`);
-  await page.locator('.form-actions [data-to="builder"]').first().click();
+  await page.locator('button[data-act="go"][data-to="builder"]:visible').first().click();
   await page.locator('.experience-grid').waitFor();
   await inspect(page,`${viewport.name}-experiences`);
   await page.locator('.experience-grid button[data-act="exp"]').first().click();
-  await page.locator('.form-actions [data-to="review"]').first().click();
+  await page.locator('button[data-act="go"][data-to="review"]:visible').first().click();
   await page.locator('.review-grid').waitFor();
   await inspect(page,`${viewport.name}-review`);
  }
