@@ -7,10 +7,10 @@ test('production database is deliberately not bound',()=>{
  assert.equal(cfg.d1_databases[0].database_id,'REPLACE_WITH_D1_UUID');
  assert.equal(cfg.workers_dev,false);
 });
-test('preview stays locked, no staff access or public intake by default',()=>{
+test('public visual preview keeps staff and customer intake disabled',()=>{
  const e=cfg.env.preview;
  for(const key of ['PREVIEW_LOCK','PRIVACY_NOTICE_APPROVED','ENABLE_STAFF_PREVIEW','ALLOW_PREVIEW_SUBMISSIONS'])assert.ok(key in e.vars);
- assert.equal(e.vars.PREVIEW_LOCK,'true');
+ assert.equal(e.vars.PREVIEW_LOCK,'false');
  for(const key of ['PRIVACY_NOTICE_APPROVED','ENABLE_STAFF_PREVIEW','ALLOW_PREVIEW_SUBMISSIONS'])assert.equal(e.vars[key],'false');
  assert.ok(cfg.assets.run_worker_first.includes('/bespoke/api/*'));
 });

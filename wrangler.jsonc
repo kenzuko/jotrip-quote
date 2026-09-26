@@ -42,7 +42,7 @@
         "STAFF_HOST": "preview-staff.invalid",
         "PREVIEW_MODE": "true",
         "PREVIEW_HOST": "jotrip-quote-preview.kenzuko.workers.dev",
-        "PREVIEW_LOCK": "true",
+        "PREVIEW_LOCK": "false",
         "ENABLE_STAFF_PREVIEW": "false",
         "ALLOW_PREVIEW_SUBMISSIONS": "false",
         "PRIVACY_NOTICE_APPROVED": "false"

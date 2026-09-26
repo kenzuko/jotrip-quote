@@ -1,0 +1,59 @@
+name: Deploy JoTrip V7 preview only
+on:
+  push:
+    branches: [feat/quote-single-domain-mvp]
+    paths:
+      - .github/workflows/deploy-preview.yml
+      - wrangler.jsonc
+      - src/**
+      - public/**
+      - migrations/**
+      - tests/**
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: jotrip-quote-preview
+  cancel-in-progress: false
+jobs:
+  deploy:
+    name: Verify, migrate preview D1, deploy preview Worker
+    runs-on: ubuntu-latest
+    environment: jotrip-preview
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_SEND_METRICS: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install CLI and run app tests
+        run: |
+          npm install --ignore-scripts
+          npm test
+          npx wrangler deploy --env preview --dry-run
+      - name: Ensure Cloudflare credentials are connected
+        shell: bash
+        run: |
+          if [[ -z "${CLOUDFLARE_API_TOKEN}" || -z "${CLOUDFLARE_ACCOUNT_ID}" ]]; then
+            echo '::error::Add CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID as GitHub repository/environment secrets. Never share secrets in code or chat.'
+            exit 1
+          fi
+      - name: Verify preview target and read-only gates
+        run: |
+          node - <<'JS'
+          const fs=require('fs');
+          const c=JSON.parse(fs.readFileSync('wrangler.jsonc','utf8'));
+          const p=c.env.preview;
+          if(p.name!=='jotrip-quote-preview'||p.d1_databases?.[0]?.database_name!=='jotrip-quote-preview-db'||p.d1_databases[0].database_id!=='5242a0ac-9d8a-4013-8cad-806c1e37ef90') throw Error('Preview target mismatch');
+          if(p.vars.PREVIEW_LOCK!=='false'||p.vars.ENABLE_STAFF_PREVIEW!=='false'||p.vars.ALLOW_PREVIEW_SUBMISSIONS!=='false'||p.vars.PRIVACY_NOTICE_APPROVED!=='false') throw Error('Unsafe preview');
+          console.log('Verified public visual preview only; guest intake and staff Studio remain disabled.');
+          JS
+      - name: Apply create-only migrations to preview D1
+        run: npx wrangler d1 migrations apply jotrip-quote-preview-db --remote --env preview
+      - name: Deploy preview Worker only
+        run: npx wrangler deploy --env preview
+      - name: Print preview URL
+        run: echo 'Visual preview: https://jotrip-quote-preview.kenzuko.workers.dev/bespoke' >> "$GITHUB_STEP_SUMMARY"

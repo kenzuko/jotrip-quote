@@ -6,7 +6,7 @@
 
 1. Upload **the contents of this directory** to that branch, retaining relative paths. Do not commit a ZIP as the entire implementation.
 2. Wait for GitHub CI, which runs `npm test` and a Wrangler preview dry run; investigate failures before proceeding.
-3. Configure Cloudflare Access for `jotrip-quote-preview.kenzuko.workers.dev` so only invited reviewers can see the site. Leave `PREVIEW_LOCK=true` and `PRIVACY_NOTICE_APPROVED=false` until security/notice review.
+3. The owner approved **public read-only visual preview** (26/09/2026): `PREVIEW_LOCK=false`, while `PRIVACY_NOTICE_APPROVED=false`, `ALLOW_PREVIEW_SUBMISSIONS=false`, `ENABLE_STAFF_PREVIEW=false` stay closed. Cloudflare Access is optional for this visual-only preview; do not enable real customer/staff data.
 4. Run preview migrations only after inspecting changes: `npx wrangler d1 migrations apply jotrip-quote-preview-db --remote --env preview`.
 5. Deploy using `npx wrangler deploy --env preview` only after the above are satisfied; verify with fake test records and strict public/internal data separation. No custom domain or DNS change.
 6. Replace placeholder WebP pictures with individually approved real Phú Quốc photography in a separate controlled asset delivery; never commit licensed photos to a public repository unless redistribution rights also cover public source distribution.
