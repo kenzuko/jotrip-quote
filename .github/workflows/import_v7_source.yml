@@ -37,11 +37,10 @@ jobs:
           node-version: '22'
       - name: Test complete V7 and Quote package
         run: node --test tests/*.test.mjs
-      - name: Commit sanitized source and remove one-time importer
+      - name: Commit sanitized source
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git rm -f .github/workflows/import_v7_source.yml
           git add -A
           git commit -m "feat: import approved V7 preview code with locked privacy gates and placeholder media"
           git push origin HEAD:feat/quote-single-domain-mvp
