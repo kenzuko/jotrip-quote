@@ -56,4 +56,5 @@ jobs:
       - name: Deploy preview Worker only
         run: npx wrangler deploy --env preview
       - name: Print preview URL
-        run: echo 'Visual preview: https://jotrip-quote-preview.kenzuko.workers.dev/bespoke' >> "$GITHUB_STEP_SUMMARY"
+        run: |
+          echo 'Visual preview: https://jotrip-quote-preview.kenzuko.workers.dev/bespoke' >> "$GITHUB_STEP_SUMMARY"
