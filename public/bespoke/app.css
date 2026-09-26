@@ -347,3 +347,74 @@ body{font-family:'Be Vietnam Pro',-apple-system,BlinkMacSystemFont,'Segoe UI',sa
 
 
 .footer-public-zalo,.footer-email{display:block;margin-top:9px;color:#365849;font-size:13px;line-height:1.45;overflow-wrap:anywhere}.footer-email:hover{color:#77944c;text-decoration:underline}
+
+
+/* JoTrip Bespoke V8 | full visual pass, 26/09/2026 | intentionally additive to V7 decision engine */
+:root{--v8-deep:#153e34;--v8-cream:#fbfaf7;--v8-melo:#FCBC12}
+body{background:var(--v8-cream);text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+.app-header{backdrop-filter:saturate(1.15) blur(13px);-webkit-backdrop-filter:saturate(1.15) blur(13px)}
+.app-header .nav button,.rightnav .talk{transition:background .16s ease,transform .16s ease}
+.homehero{isolation:isolate;background:#edf6ed}
+.home-image>img{filter:saturate(1.02) contrast(1.03);object-position:center 51%}
+.home-image:after{background:linear-gradient(90deg,rgba(255,255,255,.98) 0%,rgba(255,255,255,.91) 23%,rgba(255,255,255,.56) 47%,rgba(255,255,255,.08) 76%,transparent 100%),linear-gradient(0deg,rgba(9,47,45,.28),transparent 25%)}
+.home-copy h1,.v8-intro h2,.v8-strip h2{letter-spacing:-.048em;text-wrap:balance}
+.home-copy h1{color:#173d34;text-shadow:0 2px 14px rgba(255,255,255,.22)}
+.home-copy .lede{color:#264a41}
+.peek{box-shadow:0 24px 90px #1548352b;border:1px solid rgba(255,255,255,.8);background:rgba(255,255,255,.95);backdrop-filter:blur(20px)}
+.preview-row img{object-fit:cover}.peek .preview-disclaimer{color:#647d70}
+.photo-credit{display:block;z-index:9;position:absolute;bottom:14px;right:18px;background:#082c2c94;padding:5px 9px;border-radius:6px;color:#fff;font-size:10px;letter-spacing:.015em;max-width:fit-content;text-shadow:0 1px 3px #082e2f}
+.v8-source{position:absolute;z-index:10;right:10px;bottom:10px;color:white!important;background:rgba(9,35,30,.71);font:600 10px/1.3 'Be Vietnam Pro',sans-serif;letter-spacing:0;border-radius:6px;padding:5px 8px;pointer-events:none;max-width:max-content}
+.story .v8-source,.mood-card .v8-source{bottom:auto;top:12px;left:12px;right:auto}
+.experience .photo{position:relative;overflow:hidden}.experience .photo .v8-source{top:12px;right:12px;bottom:auto}
+.stage-header{position:relative}.stage-header .v8-source{right:8px;bottom:8px}
+.mood-card img,.story img,.experience .photo img{transition:transform .6s cubic-bezier(.2,.65,.3,1),filter .3s ease}
+@media (hover:hover){.mood-card:hover img,.story:hover img,.experience:hover .photo img{transform:scale(1.045)}}
+.mood-card,.story,.experience{overflow:hidden}.mood-card img{filter:saturate(1.1) contrast(1.025)}
+.mood-card:focus-visible,.story:focus-visible,.sunbtn:focus-visible,.greenbtn:focus-visible{outline:3px solid #e6a800;outline-offset:4px}
+.home-after{padding-bottom:70px!important}
+.v8-editorial{background:linear-gradient(180deg,#fafbf7 0%,#eff5ed 100%);padding:74px 0 86px;color:#184237}
+.v8-intro{display:grid;grid-template-columns:1.35fr .65fr;align-items:end;gap:30px;margin-bottom:29px}
+.v8-intro .eyebrow{grid-column:1/-1;margin-bottom:-10px;color:#71914d;font-size:11px;font-weight:800;letter-spacing:.18em}
+.v8-intro h2{font-size:clamp(36px,4.1vw,58px);font-weight:600;line-height:1.14;margin:0}
+.v8-intro h2 em,.v8-strip h2 em{font-style:italic;color:#a87716;font-weight:500}
+.v8-intro p{font-size:14px;line-height:1.85;color:#58746b;max-width:400px;padding-bottom:6px;margin:0}
+.v8-gallery{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:16px}
+.v8-feature{position:relative;isolation:isolate;min-height:480px;border-radius:20px;overflow:hidden;background:#123b32;color:#fff;box-shadow:0 18px 40px #17493117}
+.v8-feature img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(1.1);transition:transform .6s ease}
+.v8-feature:after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,#102c27f3 0%,#0a312f35 48%,transparent 75%);z-index:0}
+.v8-feature-copy{position:absolute;z-index:1;left:28px;right:22px;bottom:28px}
+.v8-feature-copy>span{display:block;font:700 10px 'Be Vietnam Pro',sans-serif;letter-spacing:.2em;color:#ffe7a2;margin-bottom:13px}
+.v8-feature-copy h3{font:600 clamp(25px,2.3vw,39px)/1.18 'Playfair Display',Georgia,serif;margin:0 0 16px;letter-spacing:-.025em}
+.v8-feature-copy button{border:1px solid #ffffff91;background:#ffffff18;border-radius:99px;padding:10px 16px;color:#fff;font:700 12px 'Be Vietnam Pro',sans-serif;cursor:pointer;backdrop-filter:blur(4px)}
+.v8-feature-copy button:hover{background:#fff;color:#17392f}
+@media(hover:hover){.v8-feature:hover img{transform:scale(1.035)}}
+.v8-strip{display:grid;grid-template-columns:1fr .9fr;background:#fff;border:1px solid #dfe9e2;border-radius:22px;overflow:hidden;align-items:stretch;margin-top:22px;box-shadow:0 15px 43px #153a2920;min-height:410px}
+.v8-strip>img{height:100%;width:100%;object-fit:cover;object-position:center 45%}
+.v8-strip>div{padding:49px clamp(26px,4.5vw,70px);display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.v8-strip .eyebrow{font-size:10px;letter-spacing:.15em;color:#769347;font-weight:800}
+.v8-strip h2{font-size:clamp(34px,3.3vw,51px);line-height:1.12;margin:18px 0;color:#184b3e}
+.v8-strip p{font-size:14px;line-height:1.82;color:#597266;max-width:450px;margin:0 0 23px}
+.v8-footer-banner{position:relative;isolation:isolate;background:#173c34;min-height:320px;overflow:hidden;display:flex;align-items:center;color:white}
+.v8-footer-banner>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%;filter:saturate(1.05) brightness(.75);z-index:-2}
+.v8-footer-banner:before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#103d37e6 0%,#0b403b72 52%,#092e2740 100%)}
+.v8-footer-banner .shell{width:100%;padding-top:60px;padding-bottom:60px}
+.v8-footer-banner .eyebrow{color:#ffdf83;font-size:10px;letter-spacing:.18em;font-weight:750}
+.v8-footer-banner h2{font:600 clamp(37px,4.4vw,62px)/1.1 'Playfair Display',Georgia,serif;max-width:640px;margin:14px 0 20px;color:white}
+.v8-footer-banner .sunbtn{font-size:13px}
+.footer-main{max-width:1490px}.luxury-footer{background:#fffefc}
+@media(max-width:1050px){.v8-gallery{grid-template-columns:1.2fr 1fr;gap:13px}.v8-feature-wide{grid-row:span 2;min-height:630px}.v8-feature:not(.v8-feature-wide){min-height:305px}.v8-intro{grid-template-columns:1fr 1fr}.v8-strip{min-height:340px}}
+@media(max-width:820px){
+ .homehero{background:#fff}.home-image>img{object-position:58% center;filter:saturate(1.08)}
+ .home-image:after{background:linear-gradient(180deg,#fffef9f5 0%,#fffef9e8 18%,#ffffff94 37%,#ffffff0d 58%,#052f2b22 76%,#fffffff2 98%,#fff 100%)}
+ .photo-credit{bottom:11px;left:auto;right:13px;font-size:9px;max-width:fit-content}
+ .v8-editorial{padding:47px 0 60px}.v8-intro{display:block;margin-bottom:21px}.v8-intro .eyebrow{display:block;margin-bottom:12px}.v8-intro h2{font-size:clamp(30px,8.6vw,42px);line-height:1.17}.v8-intro p{margin-top:14px;font-size:12px;line-height:1.7}
+ .v8-gallery{grid-template-columns:1fr 1fr;gap:10px}
+ .v8-feature-wide{grid-row:auto;grid-column:1/-1;min-height:355px}
+ .v8-feature:not(.v8-feature-wide){min-height:290px}
+ .v8-feature{border-radius:15px}.v8-feature-copy{left:16px;right:13px;bottom:19px}.v8-feature-copy h3{font-size:clamp(21px,5.5vw,28px)}.v8-feature-copy span{font-size:8px;letter-spacing:.12em}.v8-feature-copy button{font-size:10px;padding:8px 12px}
+ .v8-strip{display:flex;flex-direction:column;margin-top:12px;border-radius:15px}.v8-strip>img{height:240px;max-height:240px}.v8-strip>div{padding:28px 22px 30px}.v8-strip h2{font-size:37px;margin:13px 0}.v8-strip p{font-size:12px;margin-bottom:21px}
+ .v8-footer-banner{min-height:298px}.v8-footer-banner .shell{padding-top:50px;padding-bottom:50px}.v8-footer-banner h2{font-size:clamp(38px,9vw,52px);max-width:410px}
+ .stage-header .v8-source{bottom:10px;right:10px}
+}
+@media(max-width:420px){.v8-feature-wide{min-height:306px}.v8-feature:not(.v8-feature-wide){min-height:255px}.v8-feature-copy h3{font-size:20px}.v8-feature-copy{left:13px;right:12px}.v8-intro h2{font-size:32px}.v8-footer-banner{min-height:274px}}
+@media(prefers-reduced-motion:reduce){.v8-feature img,.story img,.mood-card img{transition:none!important}}
