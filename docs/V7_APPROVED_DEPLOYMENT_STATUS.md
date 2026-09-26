@@ -41,3 +41,9 @@ The owner confirmed JoTrip has its own photography on Google Drive. Drive discov
 ## 26/09/2026 implementation checkpoint
 
 The owner has finished creating the named preview Worker and binding preview D1 as `DB`. The complete V7 + Quote release candidate is present in the local QA package but is not yet committed to this public repository. A fresh local run of `node --test tests/*.test.mjs` passed **11/11**. GitHub checks confirm the branch still lacks `src/worker.mjs` and `public/bespoke/index.html` (despite the Wrangler main path), so **GitHub deployment would not yet serve V7 and should not be triggered**. Preview migrations, preview deploy, commercial media review, real iPhone Safari and privacy/terms remain pending. No user action needed until the complete sanitized source package is synchronized and preview deploy instructions are ready.
+
+## 26/09/2026 - local source sync pack ready
+
+A GitHub-safe 59-file source tree has been prepared from V7 + Quote local QA. It contains complete Worker/views/Word code, V7 CSS/JS, migrations, brand logo, CI, release gates and **20 clearly labeled neutral image placeholders**; all review-only photographs and embedded photo HTML/screenshots are excluded from the public sync pack. Footer contact details are confirmed; LINE and unapproved privacy links are not published. The Worker has stricter explicit preview host checks and three default-off gates: preview site locked, staff preview blocked, and real inquiry submission disabled until privacy approval. Static-asset routing includes `/bespoke/api/*`. **Local suite passes 19/19.**
+
+This pack still has to be uploaded into this branch. Until the complete source has arrived and CI is green, GitHub cannot deploy V7. Only after secure preview and individual media clearance should a separate approved image set be attached. No production route, DNS, preview deployment, or remote migrations have been changed by this checkpoint.
