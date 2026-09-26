@@ -485,3 +485,6 @@ body{background:var(--v8-cream);text-rendering:optimizeLegibility;-webkit-font-s
  .stage{padding-bottom:calc(110px + env(safe-area-inset-bottom))}
 }
 @media(max-width:360px){.app-header .brand,.app-header .brand img{width:114px}.home-copy{min-height:610px}}
+
+/* V8.4: public read-only preview header should point to real contact, not a disabled submission flow. */
+.rightnav a.talk{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;white-space:nowrap}
