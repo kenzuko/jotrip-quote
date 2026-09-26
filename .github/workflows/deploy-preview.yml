@@ -68,7 +68,9 @@ jobs:
       - name: Smoke-check deployed V8 HTML, media and locked APIs
         shell: bash
         run: |
-          set -euo pipefail
+          set -Eeuo pipefail
+          trap 'status=$?; echo "::error::Smoke check failed at line ${LINENO}: ${BASH_COMMAND} (exit ${status})"; exit "$status"' ERR
+          set -x
           BASE='https://jotrip-quote-preview.kenzuko.workers.dev'
           curl -fLsS --retry 2 --max-time 25 "$BASE/bespoke" -o /tmp/jotrip-v8-page.html
           grep -q 'JoTrip Bespoke' /tmp/jotrip-v8-page.html
