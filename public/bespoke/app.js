@@ -56,6 +56,8 @@ function enhanceDocumentedPhotos(){
   if((img.getAttribute('alt')||'').match(/giữ chỗ|chờ duyệt|placeholder/i))img.setAttribute('alt',PUBLIC_PHOTO_NOTES[slot]||'Ảnh du lịch Phú Quốc');
   img.title=(PUBLIC_PHOTO_NOTES[slot]||'Ảnh Phú Quốc')+' · '+mediaCredit(slot);
   if(!INTERNET_MEDIA.has(slot))return;
+  // The mood stage cover is intentionally hidden at some breakpoints. Avoid a floating credit over copy.
+  if(img.classList.contains('stage-cover')&&getComputedStyle(img).display==='none')return;
   const container=img.closest('.home-image,.mood-card,.story,.experience .photo,.journey-photo,.v8-stage-photo,.stage-header,.review-hero,.visual-frame,.visual-strip');
   if(container){
    if(container.classList.contains('home-image')){
