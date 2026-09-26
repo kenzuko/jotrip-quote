@@ -534,7 +534,7 @@ body{background:var(--v8-cream);text-rendering:optimizeLegibility;-webkit-font-s
  .local-landing .home-ctas .sunbtn{width:100%;min-height:50px!important;justify-content:space-between;font-size:13px!important}
  .local-landing .home-ctas .linebtn{width:100%;min-height:43px!important;font-size:12px!important}
  .local-landing .advisor-note{font-size:12px;line-height:1.42;margin-top:8px}
- .local-landing .homehero .local-film{height:clamp(190px,55vw,235px);min-height:190px!important;max-height:235px}
+ .local-landing .homehero .local-film{height:clamp(240px,75vw,300px);min-height:240px!important;max-height:300px}.local-landing .homehero .local-film img{object-position:center 55%}
  .local-film figcaption{left:14px;right:14px;bottom:13px;font-size:11px}
  .local-chapter>.shell{padding-left:22px;padding-right:22px}
 }
