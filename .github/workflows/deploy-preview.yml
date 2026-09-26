@@ -81,7 +81,7 @@ jobs:
           curl -fLsS --retry 4 --retry-all-errors --retry-delay 2 --max-time 25 "$BASE/bespoke/assets/local-story-motion.webp" -o /tmp/jotrip-local-story-motion.webp
           curl -fLsS --retry 4 --retry-all-errors --retry-delay 2 --max-time 25 "$BASE/bespoke/assets/local-story-poster.webp" -o /tmp/jotrip-local-story-poster.webp
           grep -q 'class="screen home-screen local-landing"' /tmp/jotrip-v8.js
-          grep -q 'local-story-motion.webp' /tmp/jotrip-v8.js
+          grep -q 'local-story-poster.webp' /tmp/jotrip-v8.js
           grep -q 'JoTrip Bespoke V8' /tmp/jotrip-v8.css
           test "$(wc -c < /tmp/jotrip-v8-hero.webp)" -gt 100000
           test "$(wc -c < /tmp/jotrip-v8-journal.webp)" -gt 100000
