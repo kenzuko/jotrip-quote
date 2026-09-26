@@ -575,3 +575,16 @@ body{background:var(--v8-cream);text-rendering:optimizeLegibility;-webkit-font-s
  .choice{padding:10px 12px;font-size:12px}
  .mobile-sticky .outline{max-width:42%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 }
+
+/* Clear two ways into the Bespoke request. */
+.local-landing .home-paths{gap:10px}
+.local-landing .home-paths .sunbtn,.local-landing .home-paths .linebtn{width:100%;min-height:52px;justify-content:space-between;text-align:left}
+.local-landing .home-paths .linebtn{border:1px solid #aab9ae;background:#fff;color:#234b3e}
+.local-landing .home-call{align-self:center;color:#365d4f;font-weight:650;text-underline-offset:3px}
+@media(max-width:640px){
+ .local-landing .home-paths{gap:8px}
+ .local-landing .home-paths .sunbtn,.local-landing .home-paths .linebtn{min-height:49px!important;padding:12px 15px!important;font-size:12px!important}
+ .local-landing .home-call{font-size:12px;padding:4px}
+ .quick-brief .panel>.form-section:nth-of-type(n+4){display:none}
+ .quick-brief .panel>.form-section:nth-of-type(3) .choice-row{display:none}
+}
