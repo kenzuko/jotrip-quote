@@ -7,7 +7,7 @@ const INTERNET_MEDIA=new Set(['coast','hero','island','boat','relax','rach-vem',
 const PUBLIC_PHOTO_NOTES={coast:'Bãi Sao · Phú Quốc',hero:'Khu nghỉ dưỡng ven biển Phú Quốc',island:'Hòn Mây Rút · Phú Quốc',boat:'Biển Phú Quốc',relax:'Nghỉ dưỡng bên biển',family:'Khách JoTrip trên chuyến đi biển',food:'Hải sản địa phương',local:'Đời sống ven biển',rachvem:'Hoàng hôn cùng thuyền cá',fishing:'Câu cá lớn cùng JoTrip',sunset:'Hoàng hôn Phú Quốc',safari:'Vui chơi cùng gia đình tại Phú Quốc',vinwonders:'VinWonders Phú Quốc'};
 const mediaCredit=k=>INTERNET_MEDIA.has(k)?'Nguồn: Internet':'Ảnh: JoTrip';
 const moods=[
- {id:'island',label:'Nghe chuyện từ người đi biển',short:'Chuyện biển',caption:'Ra đảo, theo nhịp biển và nghe người địa phương kể về vùng nước này.',img:'island',reasons:['cano','rachvem','seafood','fishing']},
+ {id:'island',label:'Nghe chuyện từ người đi biển',short:'Chuyện biển',caption:'Ra đảo, theo nhịp biển và nghe người địa phương kể về vùng nước này.',img:'rachvem',reasons:['cano','rachvem','seafood','fishing']},
  {id:'slow',label:'Một ngày thong thả bên biển',short:'Không vội',caption:'Giữ chỗ cho một buổi chiều yên, bữa ăn trên đảo và khoảng nghỉ của riêng bạn.',img:'relax',reasons:['relax','sunset','seafood']},
  {id:'food',label:'Theo dấu vị tiêu và món ăn trên đảo',short:'Vị Phú Quốc',caption:'Thử vị tiêu, hải sản và nghe chuyện từ những người làm nghề ở đảo.',img:'food',reasons:['seafood','pepper','rachvem']},
  {id:'family',label:'Cùng gia đình tìm hiểu đảo',short:'Đi cùng nhà',caption:'Chọn hoạt động và nhịp đi hợp với người lớn lẫn trẻ nhỏ.',img:'family',reasons:['vin','relax','rachvem']},
