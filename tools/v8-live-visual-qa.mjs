@@ -36,7 +36,7 @@ for(const viewport of [{name:'desktop',width:1440,height:900},{name:'iphone',wid
  if(!logoDiagnostic.button.border.startsWith('0px')||!logoDiagnostic.button.background.includes('0)'))throw Error(`${viewport.name}: logo is still framed by a button background/border`);
  if(logoDiagnostic.sha256!=='820fe71cfb1a5b29ab1daf8723f90c57f7a29b9039121072bbf32248fad2f3f4')throw Error('Preview logo differs from the approved transparent original');
  if(await page.locator('#app [style]').count())throw Error(`${viewport.name}: inline style blocked by site CSP remains in rendered page`);
- if(viewport.name==='iphone'&&(await page.locator('.peek .preview-row:visible').count())!==1)throw Error('Mobile journey demo should be compact');
+ if(viewport.name==='iphone'&&!(await page.locator('.local-film img').isVisible()))throw Error('Mobile opening story image should be visible');
  await inspect(page,`${viewport.name}-home`);
  if(viewport.name==='desktop'||viewport.name==='iphone'){
   await page.locator('.home-ctas [data-act="go"][data-to="mood"]').click();
