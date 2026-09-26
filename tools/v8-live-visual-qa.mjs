@@ -41,7 +41,8 @@ for(const viewport of [{name:'desktop',width:1440,height:900},{name:'iphone',wid
  if(viewport.name==='desktop'||viewport.name==='iphone'){
   await page.locator('.home-ctas [data-act="start"][data-mode="quick"][data-to="details"]').click();
   await page.locator('main.quick-brief').waitFor();
-  if(viewport.name==='iphone'&&await page.locator('.quick-brief .panel>.form-section:visible').count()!==3)throw Error('Quote-first mobile path should show only its three core form sections');
+  if(viewport.name==='iphone'&&await page.locator('.quick-brief .panel>.form-section:visible').count()!==4)throw Error('Quote-first mobile path should show four concise sections, including optional budget');
+  if(!(await page.locator('.quick-brief h1').innerText()).includes('để chuẩn bị báo giá'))throw Error('Quote-first path should clearly say the advisor will prepare a quote');
   await inspect(page,`${viewport.name}-quick-brief`);
   await page.locator('button[data-act="go"][data-to="review"]:visible').first().click();
   await page.locator('.v8-demo-note').waitFor();
