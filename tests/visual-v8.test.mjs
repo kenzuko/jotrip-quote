@@ -17,8 +17,8 @@ assert.match(js,/mediaCredit\(slot\)/);
 assert.match(js,/id="credits"/);
 });
 test('local story, quote flow and accessibility use the supplied footage',()=>{
-assert.match(js,/class="local-landing"/);
-assert.match(js,/class="local-film"/);
+assert.match(js,/class="screen home-screen local-landing"/);
+assert.match(js,/class="home-image local-film"/);
 assert.match(js,/Đi cùng người bản địa/);
 assert.match(js,/class="v8-footer-banner"/);
 assert.match(js,/data-to="review">Tiếp tục tới yêu cầu báo giá/);
