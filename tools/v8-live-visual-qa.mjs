@@ -39,7 +39,19 @@ for(const viewport of [{name:'desktop',width:1440,height:900},{name:'iphone',wid
  if(viewport.name==='iphone'&&!(await page.locator('.local-film img').isVisible()))throw Error('Mobile opening story image should be visible');
  const homeCheck=await inspect(page,`${viewport.name}-home`);if(viewport.name==='iphone'&&!homeCheck.openingStoryInFirstView)throw Error('Mobile opening story image should be visible in the first viewport');if(viewport.name==='iphone'&&!homeCheck.primaryCtaInFirstView)throw Error('Mobile primary action should be visible in the first viewport');
  if(viewport.name==='desktop'||viewport.name==='iphone'){
-  await page.locator('.home-ctas [data-act="go"][data-to="mood"]').click();
+  await page.locator('.home-ctas [data-act="start"][data-mode="quick"][data-to="details"]').click();
+  await page.locator('main.quick-brief').waitFor();
+  if(viewport.name==='iphone'&&await page.locator('.quick-brief .panel>.form-section:visible').count()!==3)throw Error('Quote-first mobile path should show only its three core form sections');
+  await inspect(page,`${viewport.name}-quick-brief`);
+  await page.locator('button[data-act="go"][data-to="review"]:visible').first().click();
+  await page.locator('.v8-demo-note').waitFor();
+  if(await page.locator('#name, #contact, button[data-act="submit"]').count())throw Error('Read-only preview must not display lead collection fields');
+  if(await page.locator('.mobile-sticky [data-to="details"]').count()!==1)throw Error('Quote-first review should offer a direct return to trip details');
+  await page.locator('.panel button[data-act="go"][data-to="details"]:visible').first().click();
+  await page.locator('main.quick-brief').waitFor();
+  await page.locator('.app-header [data-act="go"][data-to="home"]').click();
+  await page.locator('.home-ctas').waitFor();
+  await page.locator('.home-ctas [data-act="start"][data-mode="deep"][data-to="mood"]').click();
   await page.locator('.mood-grid').waitFor();
   if(viewport.name==='iphone'&&!(await page.locator('.mood-card .mood-title-compact').first().isVisible()))throw Error('Mobile mood cards should show short legible titles');
   await inspect(page,`${viewport.name}-moods`,{internet:1});
