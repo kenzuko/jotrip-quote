@@ -13,7 +13,7 @@ const IMG=k=>'/bespoke/assets/'+k+'.webp'; const moods=[
  {id:'seafood',name:'Một bữa hải sản đậm chất Phú Quốc',category:'Ẩm thực',img:'food',desc:'Gợi ý món địa phương và bối cảnh bữa ăn phù hợp khẩu vị của khách.',moods:['food','island'],why:'Từ sở thích ẩm thực và trải nghiệm bản địa.'},
  {id:'rachvem',name:'Tìm hiểu đời sống làng chài',category:'Bản địa',img:'rachvem',desc:'Một góc Phú Quốc gần gũi hơn, không chỉ có resort và những điểm check-in.',moods:['food','island','family'],why:'Kết nối biển đảo với đời sống địa phương.'},
  {id:'vin',name:'Một ngày vui chơi cùng gia đình',category:'Gia đình',img:'safari',desc:'Chọn hoạt động phù hợp lứa tuổi; thời gian và mức di chuyển được xem lại trước khi chốt.',moods:['family'],why:'Phù hợp với nhóm có trẻ nhỏ.'},
- {id:'sunset',name:'Buổi chiều dành cho hoàng hôn',category:'Dịp đặc biệt',img:'couple',desc:'Tìm một điểm ngắm chiều vừa nhịp hành trình và điều kiện thời tiết.',moods:['special','slow'],why:'Từ mong muốn tận hưởng khoảnh khắc đáng nhớ.'},
+ {id:'sunset',name:'Buổi chiều dành cho hoàng hôn',category:'Dịp đặc biệt',img:'sunset',desc:'Tìm một điểm ngắm chiều vừa nhịp hành trình và điều kiện thời tiết.',moods:['special','slow'],why:'Từ mong muốn tận hưởng khoảnh khắc đáng nhớ.'},
  {id:'fishing',name:'Theo người bản địa ra biển câu cá',category:'Biển & đảo',img:'fishing',desc:'Trải nghiệm câu cá có hướng dẫn, phụ thuộc điều kiện biển và khả năng phù hợp nhóm.',moods:['island','special'],why:'Dành cho người thích trải nghiệm trên biển.'},
  {id:'pepper',name:'Khám phá câu chuyện hồ tiêu',category:'Bản địa',img:'local',desc:'Hiểu một nét nghề và sản vật làm nên bản sắc Phú Quốc.',moods:['food'],why:'Đi sâu hơn vào đời sống địa phương.'}
 ];
