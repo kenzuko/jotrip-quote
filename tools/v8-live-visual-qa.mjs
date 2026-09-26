@@ -49,7 +49,7 @@ for(const viewport of [{name:'desktop',width:1440,height:900},{name:'iphone',wid
   if(await page.locator('.mobile-sticky [data-to="details"]').count()!==1)throw Error('Quote-first review should offer a direct return to trip details');
   await page.locator('.panel button[data-act="go"][data-to="details"]:visible').first().click();
   await page.locator('main.quick-brief').waitFor();
-  await page.locator('.app-header [data-act="go"][data-to="home"]').click();
+  await page.locator('.app-header .brand[data-act="go"][data-to="home"]').click();
   await page.locator('.home-ctas').waitFor();
   await page.locator('.home-ctas [data-act="start"][data-mode="deep"][data-to="mood"]').click();
   await page.locator('.mood-grid').waitFor();
