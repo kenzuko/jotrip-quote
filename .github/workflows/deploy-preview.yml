@@ -51,10 +51,21 @@ jobs:
           if(p.vars.PREVIEW_LOCK!=='false'||p.vars.ENABLE_STAFF_PREVIEW!=='false'||p.vars.ALLOW_PREVIEW_SUBMISSIONS!=='false'||p.vars.PRIVACY_NOTICE_APPROVED!=='false') throw Error('Unsafe preview');
           console.log('Verified public visual preview only; guest intake and staff Studio remain disabled.');
           JS
-      - name: Apply create-only migrations to preview D1
+      # This release is VISUAL-ONLY: submit, staff, and privacy gates are all closed.
+      # Attempt preview migrations, but a restricted D1 token must not block static visual QA.
+      # Never use this fallback if any customer or staff functionality is enabled.
+      - name: Attempt preview D1 migrations (read-only visual preview may proceed if denied)
+        id: migrate
+        continue-on-error: true
         run: npx wrangler d1 migrations apply jotrip-quote-preview-db --remote --env preview
-      - name: Deploy preview Worker only
-        run: npx wrangler deploy --env preview
-      - name: Print preview URL
+      - name: Warn if preview D1 migration was blocked
+        if: steps.migrate.outcome != 'success'
         run: |
-          echo 'Visual preview: https://jotrip-quote-preview.kenzuko.workers.dev/bespoke' >> "$GITHUB_STEP_SUMMARY"
+          echo '::warning::Preview D1 migration has not completed. Public visual QA only; do not enable forms or staff. Add Cloudflare D1 Edit permission to the API token and rerun this workflow.'
+          echo 'D1 migration pending. Visual-only preview remains permitted; customer intake and staff stay disabled.' >> "$GITHUB_STEP_SUMMARY"
+      - name: Deploy read-only preview Worker only
+        run: npx wrangler deploy --env preview
+      - name: Print preview URL and restrictions
+        run: |
+          echo 'Read-only visual preview: https://jotrip-quote-preview.kenzuko.workers.dev/bespoke' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Customer submission OFF. Staff Quote Studio OFF. Privacy notice approval OFF.' >> "$GITHUB_STEP_SUMMARY"
