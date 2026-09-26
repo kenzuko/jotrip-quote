@@ -1,0 +1,14 @@
+{
+  "name": "jotrip-quote",
+  "private": true,
+  "type": "module",
+  "version": "0.2.0",
+  "scripts": {
+    "dev": "wrangler dev --local",
+    "test": "node --test tests/*.test.mjs",
+    "deploy:preview": "wrangler deploy --env preview",
+    "deploy": "wrangler deploy",
+    "hash:admin": "node tools/make-admin-hash.mjs"
+  },
+  "devDependencies": {"wrangler":"^4.40.0"}
+}

@@ -1,0 +1,34 @@
+name: JoTrip Quote CI
+on:
+  push:
+    branches: [feat/quote-single-domain-mvp]
+    paths: ['src/**', 'public/**', 'tests/**', 'migrations/**', 'wrangler.jsonc']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check whether full source is present
+        id: source
+        run: |
+          if test -f src/worker.mjs && test -f public/bespoke/app.js; then
+            echo 'ready=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'ready=false' >> "$GITHUB_OUTPUT"
+            echo 'Full source not imported yet; preview deployment is blocked.'
+          fi
+      - uses: actions/setup-node@v4
+        if: steps.source.outputs.ready == 'true'
+        with:
+          node-version: '22'
+      - run: npm install --ignore-scripts
+        if: steps.source.outputs.ready == 'true'
+      - run: npm test
+        if: steps.source.outputs.ready == 'true'
+      - run: npx wrangler deploy --env preview --dry-run
+        if: steps.source.outputs.ready == 'true'
+        env:
+          CLOUDFLARE_SEND_METRICS: 'false'

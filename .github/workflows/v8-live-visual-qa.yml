@@ -1,0 +1,37 @@
+name: V8 live visual QA (Chrome snapshots)
+on:
+  push:
+    branches: [feat/quote-single-domain-mvp]
+    paths:
+      - tools/v8-live-visual-qa.mjs
+      - .github/workflows/v8-live-visual-qa.yml
+      - public/bespoke/*.html
+      - public/bespoke/*.css
+      - public/bespoke/*.js
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  snapshot:
+    name: Check live V8 desktop / iPhone / compact
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install lightweight browser client
+        run: npm install --no-save --ignore-scripts playwright-core@1.56.1
+      - name: Run live browser screenshot and overflow audit
+        env:
+          JOTRIP_PREVIEW_URL: https://jotrip-quote-preview.kenzuko.workers.dev
+          CHROME_BIN: /usr/bin/google-chrome
+        run: node tools/v8-live-visual-qa.mjs
+      - name: Save review images and measurements
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: jotrip-v8-live-visual-qa
+          path: artifacts/v8-visual-qa/
+          if-no-files-found: warn
+          retention-days: 3
