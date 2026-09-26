@@ -24,6 +24,14 @@ for(const viewport of [{name:'desktop',width:1440,height:900},{name:'iphone',wid
  const res=await page.goto(url,{waitUntil:'domcontentloaded',timeout:35000});
  if((!res||res.status()!==200))throw Error(`${viewport.name}: GET /bespoke status ${res?.status()}`);
  await page.locator('.homehero').waitFor();
+ const logoDiagnostic=await page.locator('.app-header .brand').evaluate(async btn=>{
+ const img=btn.querySelector('img');
+ const attributes=e=>{const c=getComputedStyle(e),r=e.getBoundingClientRect();return{border:c.border,background:c.backgroundColor,outline:c.outline,boxShadow:c.boxShadow,display:c.display,objectFit:c.objectFit,width:r.width,height:r.height,src:e.currentSrc||undefined,naturalSize:e.naturalWidth&&[e.naturalWidth,e.naturalHeight]}};
+ const raw=await fetch(img.currentSrc,{cache:'no-store'}).then(x=>x.arrayBuffer());
+ const hash=await crypto.subtle.digest('SHA-256',raw);
+ return{button:attributes(btn),image:attributes(img),assetBytes:raw.byteLength,sha256:Array.from(new Uint8Array(hash),x=>x.toString(16).padStart(2,'0')).join('')};
+ });
+ console.log('LOGO_DIAGNOSTIC',viewport.name,JSON.stringify(logoDiagnostic));
  await inspect(page,`${viewport.name}-home`,{internet:2});
  if(viewport.name==='desktop'||viewport.name==='iphone'){
   await page.locator('.home-ctas [data-act="go"][data-to="mood"]').click();
