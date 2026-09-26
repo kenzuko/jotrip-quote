@@ -28,3 +28,22 @@ For every hero/mood/experience visual whose source is the owner's `JOTRIP_INTERN
 - [Chrome QA 1440px desktop / 390px mobile / 320px compact](https://github.com/kenzuko/jotrip-quote/actions/runs/36226939847): tất cả kiểm tra hành trình và ảnh đạt, 15 screenshot tự động, không ảnh hỏng, không tràn ngang, không lỗi JavaScript, nút điều hướng mobile hoạt động. Đây là **Chrome mô phỏng iPhone**, không phải thử trên Safari thiết bị thật.
 - [GitHub Actions preview deploy cuối](https://github.com/kenzuko/jotrip-quote/actions/runs/36226937807): PASS gồm Node tests, Wrangler dry run, preview D1 migrations, upload Worker/assets và HTTP smoke sau deploy. Tại cuối mốc này, bản xem thử cập nhật ở `https://jotrip-quote-preview.kenzuko.workers.dev/bespoke`.
 - PR #1 giữ **Draft**; `main`, `jotrip.vn`, DNS production, form nhận khách và Quote Studio vẫn giữ nguyên hoặc khóa như trước.
+
+## Logo/header corrective pass and UI critique - 26/09/2026
+
+**No new V8.x release label pending the owner's visual approval.** The prior V8.3 tag referred to internal preview iterations, not completed sign-off.
+
+### Diagnosed and corrected
+- GitHub Actions [live logo diagnostic](https://github.com/kenzuko/jotrip-quote/actions/runs/36227507318) reproduced the user's boxed-logo report on 1440, 390 and 320 widths: although the approved 450×197 logo PNG is transparent and unchanged (SHA-256 `820fe71cfb1a5b29ab1daf8723f90c57f7a29b9039121072bbf32248fad2f3f4`), the button wrapper rendered with a **2px outset browser border and rgb(239,239,239) background**. The root cause is a blocked inline style attribute under our strict CSP (`style-src 'self'`), not the logo graphic itself. Sixteen other inline style instances in Bespoke were affected.
+- [Code fix](https://github.com/kenzuko/jotrip-quote/commit/3fbaee5387aa4799e49933a29ded8f2f45301013) moved all 17 inline styles to CSS, explicitly made the approved logo/button borderless and transparent, softened the header boundary, made the mobile homepage preview card compact, and shortened mobile mood titles. Do **not** add `unsafe-inline` to CSP or redraw/edit brand artwork.
+- [Current deploy](https://github.com/kenzuko/jotrip-quote/actions/runs/36227963090) succeeded, retained no-index, read-only guest intake and disabled staff paths. The HTML is now non-cacheable, and stylesheet/script URLs have a cache-busting version query to avoid stale iPhone Safari copies.
+- [Post-fix live Chrome QA](https://github.com/kenzuko/jotrip-quote/actions/runs/36227751525) succeeded on desktop 1440, simulated iPhone 390 and compact 320. Computed live logo button style: `border:0px none`, transparent background, original asset byte-identical, with widths 136/126/114px. Automated checks confirm no inline style attributes, one preview suggestion visible on mobile, all guided screens navigate, no missing images or horizontal overflow. This is **not** a physical iPhone Safari test.
+
+### Design decisions to review with the owner, not silently change
+1. Keep a light, readable sticky navigation rather than placing the unmodified yellow-green logo directly over visually variable hero photos. Do not restore a framed logo or heavy nav shadow.
+2. Mobile still takes substantial scrolling to reach the image-based options and contains repeated large CTA blocks. Consider one compact Journey teaser above the fold and a single primary CTA per section; avoid sacrificing the desktop panoramic editorial treatment.
+3. The 2-column mobile mood grid now uses short titles but longer descriptive captions remain cramped. Consider a 2-line visual clamp and show fuller explanation only when a choice is selected; compare to a 1.1-card horizontal carousel before choosing. Keep all five moods discoverable.
+4. Review Internet-source labels as readable microcredits without obscuring photo/text; attribution is not a copyright license. Commercial release rights and identifiable-guest releases still require clearance.
+5. The public preview's top “Tư vấn ngay” opens a note-taking modal, **not** a live staffed service. Replace or clarify this CTA before production; review the footer to avoid duplicating generic links.
+
+**No change to jotrip.vn, main/DNS, intake, staff Studio or production D1. PR #1 remains Draft.**
