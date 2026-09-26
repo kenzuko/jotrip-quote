@@ -5,7 +5,7 @@ const root=new URL('../public/bespoke/assets/',import.meta.url);
 const js=readFileSync(new URL('../public/bespoke/app.js',import.meta.url),'utf8');
 const css=readFileSync(new URL('../public/bespoke/app.css',import.meta.url),'utf8');
 test('all V8 mood, experience, hero and editorial assets are real WebP files',()=>{
-for(const k of ['coast','hero','island','boat','relax','family','group','couple','sunset-table','food','local-catch','local','rachvem','rach-vem','fishing','big-fishing','safari','vinwonders','show','sunset','journal-reef','journal-night','journal-local','journal-private','journal-boat','snorkeling']){
+for(const k of ['coast','hero','island','boat','relax','family','group','couple','sunset-table','food','local-catch','local','rachvem','rach-vem','fishing','big-fishing','safari','vinwonders','show','sunset','journal-reef','journal-night','journal-local','journal-private','journal-boat','snorkeling','local-story-poster']){
 assert.ok(existsSync(new URL(k+'.webp',root)),k);
 }
 });
@@ -16,10 +16,13 @@ assert.match(js,/className='v8-source'/);
 assert.match(js,/mediaCredit\(slot\)/);
 assert.match(js,/id="credits"/);
 });
-test('V8 photo editorial, footer and accessibility respect the approved journey flow',()=>{
-assert.match(js,/class="v8-editorial"/);
+test('local story, quote flow and accessibility use the supplied footage',()=>{
+assert.match(js,/class="local-landing"/);
+assert.match(js,/class="local-film"/);
+assert.match(js,/Đi cùng người bản địa/);
 assert.match(js,/class="v8-footer-banner"/);
-assert.match(js,/class="v8-gallery"/);
+assert.match(js,/data-to="review">Tiếp tục tới yêu cầu báo giá/);
+assert.ok(existsSync(new URL('local-story.mp4',root)));
 assert.match(js,/data-act="moodone"/);
 assert.match(css,/\/\* JoTrip Bespoke V8/);
 assert.match(css,/@media\(max-width:820px\)/);
