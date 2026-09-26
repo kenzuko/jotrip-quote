@@ -73,7 +73,7 @@ function enhanceDocumentedPhotos(){
   const previewPanel=root.querySelector('.two-col > aside.panel');
   if(previewPanel)previewPanel.innerHTML="<div class=\"eyebrow\">BẢN XEM THỬ · CHƯA NHẬN THÔNG TIN</div><h3 class=\"v8-demo-heading\">Hành trình của bạn đã có hình dáng.</h3><p class=\"v8-demo-copy\">Đây là bản xem thử giao diện. Bạn có thể thay đổi gu, người đồng hành và trải nghiệm để xem JoTrip thiết kế bản phác thảo ra sao.</p><div class=\"v8-demo-note\">Bản xem thử chưa nhận thông tin cá nhân hay yêu cầu báo giá. Muốn trao đổi về chuyến đi thật, bạn có thể liên hệ trực tiếp với JoTrip.</div><div class=\"v8-demo-actions\"><a class=\"sunbtn\" href=\"tel:+84817060066\">Gọi JoTrip · 0817 060 066 ↗</a><a class=\"linebtn\" href=\"mailto:phuquoclux@gmail.com\">Viết email cho JoTrip ↗</a></div><button class=\"quietlink\" data-act=\"go\" data-to=\"builder\">← Xem lại và thay đổi trải nghiệm</button>";
   const previewSticky=root.querySelector('.mobile-sticky');
-  if(previewSticky)previewSticky.innerHTML="<button class=\"outline\" data-act=\"go\" data-to=\"builder\">← Chỉnh trải nghiệm</button><a class=\"sunbtn\" href=\"tel:+84817060066\">Gọi JoTrip ↗</a>";
+  if(previewSticky)previewSticky.innerHTML="<button class=\"outline\" data-act=\"go\" data-to=\""+(s.mode==='quick'?'details':'builder')+"\">← "+(s.mode==='quick'?'Sửa thông tin':'Chỉnh trải nghiệm')+"</button><a class=\"sunbtn\" href=\"tel:+84817060066\">Gọi JoTrip ↗</a>";
  }
 
 }
