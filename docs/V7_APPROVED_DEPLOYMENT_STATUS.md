@@ -1,3 +1,5 @@
+> **HISTORICAL V7 CHECKPOINT ONLY.** As of 26/09/2026, V8 visual preview has been deployed with 26 WebP media slots and passed live HTTP smoke tests. Read [V8 live status](V8_PREVIEW_LIVE_STATUS.md) for current facts. The older V7 milestones below are archival, not current deployment instructions.
+
 # JoTrip Bespoke V7 - implementation checkpoint, 26/09/2026
 
 **Owner decision:** V7 visual approved for implementation, including shared panoramic hero, responsive mobile, original JoTrip logo, Be Vietnam Pro + Playfair Display, image-led mood selection, evolving Journey Studio and completed footer. Keep the approved Bespoke/Quote architecture and public/private data boundary.
