@@ -436,3 +436,11 @@ body{background:var(--v8-cream);text-rendering:optimizeLegibility;-webkit-font-s
 /* V8.2: keep source badges attached to visible photos, not mobile copy. */
 .v8-stage-photo>.v8-source{right:10px;bottom:10px}
 @media(max-width:820px){.stage-header:has(>.stage-cover)>.v8-source{display:none!important}}
+
+/* V8.3 public visual demo: avoid inviting PII before intake is enabled. */
+.v8-demo-heading{font:600 clamp(27px,2.3vw,38px)/1.16 'Playfair Display',Georgia,serif;color:#184637;margin:13px 0 16px}
+.v8-demo-copy{font-size:14px;line-height:1.85;color:#5d7469;margin:0 0 20px}
+.v8-demo-note{font-size:13px;line-height:1.72;color:#295d49;background:#edf6ed;border:1px solid #cfe4d2;border-radius:12px;padding:16px 18px}
+.v8-demo-actions{display:grid;gap:12px;margin:25px 0 22px}
+.v8-demo-actions .sunbtn,.v8-demo-actions .linebtn{display:flex;align-items:center;justify-content:center;text-decoration:none;min-height:50px;font-size:13px;text-align:center}
+.mobile-sticky a.sunbtn{display:flex;align-items:center;justify-content:center;text-decoration:none}
