@@ -17,7 +17,7 @@ jobs:
           ref: feat/quote-single-domain-mvp
       - name: Verify upload is the reviewed source pack
         run: |
-          echo "d7a50501c39eca0fd40dcf6c8843beecf14740041431e32f4c892150c066daa6  JoTrip_Bespoke_V7_GITHUB_UPLOAD_SAFE_26_09_2026.zip" | sha256sum -c -
+          echo "815ea274c19f742ba2ac60d8882d56f14d1e6941a755d2234597e76a79628ed6  JoTrip_Bespoke_V7_GITHUB_UPLOAD_SAFE_26_09_2026.zip" | sha256sum -c -
           python3 - <<'PY'
           import zipfile, pathlib
           name='JoTrip_Bespoke_V7_GITHUB_UPLOAD_SAFE_26_09_2026.zip'
@@ -37,6 +37,12 @@ jobs:
           node-version: '22'
       - name: Test complete V7 and Quote package
         run: node --test tests/*.test.mjs
+      - name: Verify preview Worker can bundle (without deploying)
+        run: |
+          npm install --ignore-scripts
+          npx wrangler deploy --env preview --dry-run
+        env:
+          CLOUDFLARE_SEND_METRICS: 'false'
       - name: Commit sanitized source
         run: |
           git config user.name 'github-actions[bot]'
