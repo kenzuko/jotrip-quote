@@ -537,6 +537,8 @@ body{background:var(--v8-cream);text-rendering:optimizeLegibility;-webkit-font-s
 
 /* V8.5 mobile pass: restore the island image and make the current step legible. */
 @media(max-width:820px){
+ .stage-header:has(>.stage-cover){display:block;width:100%}
+ .stage-header:has(>.stage-cover)>div{width:100%}
  .stage-header>.stage-cover{display:block;width:100%;height:clamp(154px,42vw,210px);margin-top:15px;border-radius:15px;object-fit:cover;object-position:center 48%}
  .progress{align-items:center;gap:5px;margin-bottom:22px}
  .p-item{display:flex;flex-direction:row;align-items:center;gap:6px;min-width:27px;white-space:nowrap;font-size:0}
