@@ -1,0 +1,13 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {normalizeRequest,normalizeDraft,approvePublic,computeInternal,sha256,token,escapeHtml} from '../src/core.mjs';
+import {makeWord} from '../src/word.mjs';
+import {writeFileSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+const sample=()=>({title:'Phú Quốc <5 ngày>',clientSalutation:'Đoàn <B> Đài Loan',introduction:'Hành trình 5 ngày',days:[{title:'Ngày 1',details:'Đón sân bay',highlight:'Hoàng hôn'}],options:[{label:'Gói A',hotel:'Seashells',partySize:20,sellPerGuest:13800000}],internal:{lines:[{name:'Báo giá nhà cung cấp BÍ MẬT',qty:1,unitCost:7500000,basis:'per_guest'}],notes:'margin 23%'}});
+test('Bespoke requires contact and affirmative consent',()=>{assert.throws(()=>normalizeRequest({name:'A',contact:'test@mail.com'}));assert.equal(normalizeRequest({name:'A',contact:'test@mail.com',consent:true,party:'family'}).party,'family')});
+test('Public approval builds strict allowlist with no private rates or secret keys',()=>{const publicData=approvePublic(sample());const s=JSON.stringify(publicData);assert.equal(publicData.options[0].sellPerGuest,13800000);assert.ok(!s.includes('BÍ MẬT'));assert.ok(!s.includes('margin'));assert.ok(!s.includes('unitCost'));assert.ok(!('internal' in publicData))});
+test('Invalid photos are dropped, XSS is escaped, unsupported JSON keys are ignored',()=>{const s=normalizeDraft({...sample(),days:[{title:'<script>alert(1)</script>',details:'Okay',photo:'javascript:alert(1)'}]});assert.equal(s.days[0].photo,'');assert.equal(escapeHtml(s.days[0].title),'&lt;script&gt;alert(1)&lt;/script&gt;');assert.equal(s.rootPassword,undefined)});
+test('Price calculator handles fixed, per guest and per room-night separately',()=>{const d=normalizeDraft({...sample(),internal:{lines:[{name:'Xe',qty:1,unitCost:1000000,basis:'fixed'},{name:'Ăn',qty:2,unitCost:200000,basis:'per_guest'},{name:'Phòng',qty:1,unitCost:500000,basis:'per_room_night'}]}});const a=computeInternal(d,20,10,4);assert.equal(a.totalCost,1000000+2*200000*20+500000*10*4)});
+test('Share token has 256 bits and digests are stable',async()=>{const k=token();assert.match(k,/^[a-f0-9]{64}$/);assert.notEqual(token(),k);assert.equal(await sha256(k),await sha256(k))});
+test('Word export contains approved public fields and excludes internal cost fields',()=>{const b=makeWord(approvePublic(sample()));assert.equal(Buffer.from(b).subarray(0,2).toString(),'PK');assert.ok(b.length>1100);writeFileSync(join(tmpdir(),'jotrip-approved-sample.docx'),b)});

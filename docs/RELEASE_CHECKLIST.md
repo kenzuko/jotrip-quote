@@ -1,0 +1,13 @@
+- [x] V7 visual approved by owner
+- [x] V7 HTML/CSS/JS mapped to /bespoke without replacing homepage
+- [x] Same-origin lead submit wired to Quote Worker D1 endpoint
+- [x] Quote core tests / integration flow pass locally (11 tests)
+- [x] Desktop/mobile Chromium flow via isolated API mock
+- [ ] Production rights verified for every photograph and person
+- [ ] Footer contacts/legal URL confirmed
+- [ ] Real iPhone Safari QA
+- [ ] Cloudflare preview D1 configured / Worker deployed / role access verified
+- [ ] GitHub public branch synced with approved source and only licensed assets
+- [ ] Real preview API E2E and independent leak audit
+- [ ] Owner verifies preview URL
+- [ ] Production publish + rollback smoke test

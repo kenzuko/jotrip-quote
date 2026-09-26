@@ -36,8 +36,8 @@ export function normalizeDraft(input) {
     title, clientSalutation:text(input.clientSalutation,90), subtitle:text(input.subtitle,200),
     startDate:text(input.startDate,35), endDate:text(input.endDate,35),
     introduction:text(input.introduction,1700),
-    days:arr(input.days,21).map((d,i)=>({key:'day-'+(i+1),title:text(d?.title,160),details:text(d?.details,2600),highlight:text(d?.highlight,340),caution:text(d?.caution,340),photo:allowedPhoto(d?.photo)})),
-    options:arr(input.options,12).map((o,i)=>({key:'option-'+(i+1),label:text(o?.label,100),hotel:text(o?.hotel,110),partySize:positive(o?.partySize,300),sellPerGuest:positive(o?.sellPerGuest),priceState:choice(o?.priceState,['indicative','confirmed'],'indicative')})),
+    days:arr(input.days,21).map((d,i)=>({key:`day-${i+1}`,title:text(d?.title,160),details:text(d?.details,2600),highlight:text(d?.highlight,340),caution:text(d?.caution,340),photo:allowedPhoto(d?.photo)})),
+    options:arr(input.options,12).map((o,i)=>({key:`option-${i+1}`,label:text(o?.label,100),hotel:text(o?.hotel,110),partySize:positive(o?.partySize,300),sellPerGuest:positive(o?.sellPerGuest),priceState:choice(o?.priceState,['indicative','confirmed'],'indicative')})),
     inclusions:arr(input.inclusions,24).map(s=>text(s,260)),exclusions:arr(input.exclusions,24).map(s=>text(s,260)),
     terms:text(input.terms,2400), validUntil:text(input.validUntil,35),
     internal:{lines:arr(input.internal?.lines,150).map(l=>({name:text(l?.name,130),qty:positive(l?.qty,100000),unitCost:positive(l?.unitCost),basis:choice(l?.basis,['fixed','per_guest','per_room_night'],'fixed')})),notes:text(input.internal?.notes,2000)}
@@ -52,6 +52,7 @@ export function approvePublic(draft) {
   const clean=normalizeDraft(draft);
   if (!clean.days.length || !clean.days.some(d=>d.title&&d.details)) throw Error('Chưa có lịch trình để công bố');
   if (!clean.options.some(o=>o.sellPerGuest>0&&o.partySize>0)) throw Error('Chưa có giá bán để công bố');
+  // Construct from scratch. Never serialize draft or spread any internal keys.
   return Object.freeze({
     title:clean.title,clientSalutation:clean.clientSalutation,subtitle:clean.subtitle,
     startDate:clean.startDate,endDate:clean.endDate,introduction:clean.introduction,

@@ -2,9 +2,25 @@
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "jotrip-quote",
   "main": "src/worker.mjs",
-  "compatibility_date": "2026-09-24",
+  "compatibility_date": "2026-09-25",
   "workers_dev": false,
-  "observability": { "enabled": true },
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/api/*",
+      "/bespoke",
+      "/bespoke/api/*",
+      "/quote/*",
+      "/login",
+      "/studio",
+      "/studio/*",
+      "/p/*"
+    ]
+  },
   "d1_databases": [
     {
       "binding": "DB",
@@ -13,10 +29,24 @@
       "migrations_dir": "migrations"
     }
   ],
+  "vars": {
+    "PUBLIC_HOST": "jotrip.vn",
+    "STAFF_HOST": "quote.jotrip.vn"
+  },
   "env": {
     "preview": {
       "name": "jotrip-quote-preview",
       "workers_dev": true,
+      "vars": {
+        "PUBLIC_HOST": "preview-public.invalid",
+        "STAFF_HOST": "preview-staff.invalid",
+        "PREVIEW_MODE": "true",
+        "PREVIEW_HOST": "jotrip-quote-preview.kenzuko.workers.dev",
+        "PREVIEW_LOCK": "true",
+        "ENABLE_STAFF_PREVIEW": "false",
+        "ALLOW_PREVIEW_SUBMISSIONS": "false",
+        "PRIVACY_NOTICE_APPROVED": "false"
+      },
       "d1_databases": [
         {
           "binding": "DB",
