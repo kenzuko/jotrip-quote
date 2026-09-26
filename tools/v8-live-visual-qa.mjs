@@ -24,6 +24,7 @@ for(const viewport of [{name:'desktop',width:1440,height:900},{name:'iphone',wid
  const res=await page.goto(url,{waitUntil:'domcontentloaded',timeout:35000});
  if((!res||res.status()!==200))throw Error(`${viewport.name}: GET /bespoke status ${res?.status()}`);
  await page.locator('.homehero').waitFor();
+ if((await page.locator('.rightnav a.talk[href="tel:+84817060066"]').count())!==1)throw Error('Preview header CTA must use real JoTrip phone link, not inactive consultation');
  const logoDiagnostic=await page.locator('.app-header .brand').evaluate(async btn=>{
  const img=btn.querySelector('img');
  const attributes=e=>{const c=getComputedStyle(e),r=e.getBoundingClientRect();return{border:c.border,background:c.backgroundColor,outline:c.outline,boxShadow:c.boxShadow,display:c.display,objectFit:c.objectFit,width:r.width,height:r.height,src:e.currentSrc||undefined,naturalSize:e.naturalWidth&&[e.naturalWidth,e.naturalHeight]}};
