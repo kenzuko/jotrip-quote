@@ -516,8 +516,8 @@ body{background:var(--v8-cream);text-rendering:optimizeLegibility;-webkit-font-s
 .local-steps b{font-size:16px;font-weight:650}
 .local-steps small{font-size:14px;color:#64776f}
 @media(max-width:860px){
- .local-landing .homehero{grid-template-columns:1fr;gap:15px;padding:24px 24px 36px}
- .local-landing .home-copy{grid-row:2;padding:10px 0 0}
+ .local-landing .homehero{grid-template-columns:1fr;min-height:0;gap:15px;padding:24px 24px 36px}
+ .local-landing .home-copy{grid-row:2;min-height:0;padding:10px 0 0}
  .local-landing .home-copy h1{font-size:clamp(38px,8.6vw,56px)}
  .local-landing .homehero .local-film{grid-column:1;grid-row:1;height:clamp(250px,58vw,430px);max-height:430px;min-height:250px!important;border-radius:16px}
  .local-chapter{padding:60px 0!important}
