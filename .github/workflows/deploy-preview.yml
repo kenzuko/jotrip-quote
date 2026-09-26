@@ -65,6 +65,26 @@ jobs:
           echo 'D1 migration pending. Visual-only preview remains permitted; customer intake and staff stay disabled.' >> "$GITHUB_STEP_SUMMARY"
       - name: Deploy read-only preview Worker only
         run: npx wrangler deploy --env preview
+      - name: Smoke-check deployed V8 HTML, media and locked APIs
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE='https://jotrip-quote-preview.kenzuko.workers.dev'
+          curl -fLsS --retry 2 --max-time 25 "$BASE/bespoke" -o /tmp/jotrip-v8-page.html
+          grep -q 'JoTrip Bespoke' /tmp/jotrip-v8-page.html
+          curl -fLsS --max-time 25 "$BASE/bespoke/app.js" -o /tmp/jotrip-v8.js
+          curl -fLsS --max-time 25 "$BASE/bespoke/app.css" -o /tmp/jotrip-v8.css
+          curl -fLsS --max-time 25 "$BASE/bespoke/assets/coast.webp" -o /tmp/jotrip-v8-hero.webp
+          curl -fLsS --max-time 25 "$BASE/bespoke/assets/journal-private.webp" -o /tmp/jotrip-v8-journal.webp
+          grep -q 'class="v8-editorial"' /tmp/jotrip-v8.js
+          grep -q 'JoTrip Bespoke V8' /tmp/jotrip-v8.css
+          test "$(wc -c < /tmp/jotrip-v8-hero.webp)" -gt 100000
+          test "$(wc -c < /tmp/jotrip-v8-journal.webp)" -gt 100000
+          CODE=$(curl -sS --max-time 25 -o /tmp/jotrip-v8-submit.json -w '%{http_code}' -X POST "$BASE/bespoke/api/submit" -H "Origin: $BASE" -H 'Content-Type: application/json' --data '{}')
+          test "$CODE" = '503'
+          CODE=$(curl -sS --max-time 25 -o /tmp/jotrip-v8-staff.json -w '%{http_code}' "$BASE/api/staff/quotes")
+          test "$CODE" = '403'
+          echo 'V8 HTML, CSS, JS, full-quality assets and closed customer/staff APIs verified live.' >> "$GITHUB_STEP_SUMMARY"
       - name: Print preview URL and restrictions
         run: |
           echo 'Read-only visual preview: https://jotrip-quote-preview.kenzuko.workers.dev/bespoke' >> "$GITHUB_STEP_SUMMARY"
