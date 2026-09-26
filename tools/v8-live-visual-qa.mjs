@@ -21,7 +21,7 @@ for(const viewport of [{name:'desktop',width:1440,height:900},{name:'iphone',wid
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  const url=BASE+'/bespoke';
  const res=await page.goto(url,{waitUntil:'domcontentloaded',timeout:35000});
- if(res.status!==200)throw Error(`${viewport.name}: GET /bespoke status ${res.status}`);
+ if((!res||res.status()!==200))throw Error(`${viewport.name}: GET /bespoke status ${res?.status()}`);
  await page.locator('.homehero').waitFor();
  await inspect(page,`${viewport.name}-home`,{internet:2});
  if(viewport.name==='desktop'||viewport.name==='iphone'){
