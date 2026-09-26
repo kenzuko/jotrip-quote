@@ -76,14 +76,14 @@ jobs:
           curl -fLsS --max-time 25 "$BASE/bespoke/app.css" -o /tmp/jotrip-v8.css
           curl -fLsS --max-time 25 "$BASE/bespoke/assets/coast.webp" -o /tmp/jotrip-v8-hero.webp
           curl -fLsS --max-time 25 "$BASE/bespoke/assets/journal-private.webp" -o /tmp/jotrip-v8-journal.webp
-          curl -fLsS --max-time 25 "$BASE/bespoke/assets/local-story.mp4" -o /tmp/jotrip-local-story.mp4
+          curl -fLsS --max-time 25 "$BASE/bespoke/assets/local-story-motion.webp" -o /tmp/jotrip-local-story-motion.webp
           curl -fLsS --max-time 25 "$BASE/bespoke/assets/local-story-poster.webp" -o /tmp/jotrip-local-story-poster.webp
           grep -q 'class="screen home-screen local-landing"' /tmp/jotrip-v8.js
-          grep -q 'local-story.mp4' /tmp/jotrip-v8.js
+          grep -q 'local-story-motion.webp' /tmp/jotrip-v8.js
           grep -q 'JoTrip Bespoke V8' /tmp/jotrip-v8.css
           test "$(wc -c < /tmp/jotrip-v8-hero.webp)" -gt 100000
           test "$(wc -c < /tmp/jotrip-v8-journal.webp)" -gt 100000
-          test "$(wc -c < /tmp/jotrip-local-story.mp4)" -gt 100000
+          test "$(wc -c < /tmp/jotrip-local-story-motion.webp)" -gt 100000
           test "$(wc -c < /tmp/jotrip-local-story-poster.webp)" -gt 10000
           CODE=$(curl -sS --max-time 25 -o /tmp/jotrip-v8-submit.json -w '%{http_code}' -X POST "$BASE/bespoke/api/submit" -H "Origin: $BASE" -H 'Content-Type: application/json' --data '{}')
           test "$CODE" = '503'
