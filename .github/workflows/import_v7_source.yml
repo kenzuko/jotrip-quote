@@ -1,0 +1,47 @@
+name: Import approved V7 source pack
+on:
+  push:
+    branches:
+      - feat/quote-single-domain-mvp
+    paths:
+      - JoTrip_Bespoke_V7_GITHUB_UPLOAD_SAFE_26_09_2026.zip
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          ref: feat/quote-single-domain-mvp
+      - name: Verify upload is the reviewed source pack
+        run: |
+          echo "d7a50501c39eca0fd40dcf6c8843beecf14740041431e32f4c892150c066daa6  JoTrip_Bespoke_V7_GITHUB_UPLOAD_SAFE_26_09_2026.zip" | sha256sum -c -
+          python3 - <<'PY'
+          import zipfile, pathlib
+          name='JoTrip_Bespoke_V7_GITHUB_UPLOAD_SAFE_26_09_2026.zip'
+          with zipfile.ZipFile(name) as archive:
+              paths=archive.namelist()
+              assert all(not p.startswith('/') and '..' not in pathlib.PurePosixPath(p).parts for p in paths), 'unsafe archive path'
+              assert len(paths)==len(set(paths)), 'duplicate archive entries'
+              required={'src/worker.mjs','public/bespoke/app.js','public/bespoke/app.css','public/bespoke/index.html','wrangler.jsonc','migrations/0001_init.sql','tests/preview-gates.test.mjs','.github/workflows/ci.yml'}
+              assert required.issubset(set(paths)), 'source pack is incomplete'
+          PY
+      - name: Extract source tree and verify it
+        run: |
+          unzip -q -o JoTrip_Bespoke_V7_GITHUB_UPLOAD_SAFE_26_09_2026.zip -d .
+          rm JoTrip_Bespoke_V7_GITHUB_UPLOAD_SAFE_26_09_2026.zip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test complete V7 and Quote package
+        run: node --test tests/*.test.mjs
+      - name: Commit sanitized source and remove one-time importer
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm -f .github/workflows/import_v7_source.yml
+          git add -A
+          git commit -m "feat: import approved V7 preview code with locked privacy gates and placeholder media"
+          git push origin HEAD:feat/quote-single-domain-mvp
